@@ -20,5 +20,5 @@ public class CameraController : MonoBehaviour
 
 // 무한점프 없애기
 // 움직임이나 점프 값을 바꿔보기
-// 발판을 프리펩으로 만들어서 위쪽으로 자동으로 생기게하기
-// 좌우로 움직이는 발판도 만들어보기
+// 발판을 프리펩으로 만들어서 위쪽으로 자동으로 생기게하기(boxGenerator)
+// 좌우로 움직이는 발판도 만들어보기(boxGenerator)

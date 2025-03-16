@@ -10,20 +10,19 @@ public class BoxGenerator : MonoBehaviour
 
     void Start()
     {
-        GameObject Empty = Instantiate(BoxPrefab) as GameObject;
         for (int i = 0; i < boxCount; i++)
         {
             Vector2 spawnPos = GetRandomPosition();
-            int randomIndex = randomIndex.Range(0, BoxPrefab.Length);
-            GameObject newBox = Instantiate(BoxPrefab[randomIndex], spawnPos, Quaternion.identity);
+            //·£´ý ÀÎµ¦½º 
+            int randomIndex = Random.Range(0, BoxPrefab.Length);
+            
         }
-
-        Vector2 GetRandomPosition()
-        {
-            float x = Random.Range(-5f, 5f);
-            float y = Random.Range(-5f, 5f);
-            return new Vector2(x, y);
-        }
+    }
+    Vector2 GetRandomPosition()
+    {
+        float x = Random.Range(-5f, 5f);
+        float y = Random.Range(-5f, 5f);
+        return new Vector2(x, y);
     }
 
     // Update is called once per frame

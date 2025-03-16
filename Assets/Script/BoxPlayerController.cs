@@ -4,7 +4,7 @@ public class BoxPlayerController : MonoBehaviour
 {
      
     Rigidbody2D _rigidbody2D;
-    float _jumpForce = 500.0f;
+    float _jumpForce = 100.0f;
     float _walkForce = 30.0f;
     float _maxWalkSpeed = 2.0f;
 
@@ -15,15 +15,15 @@ public class BoxPlayerController : MonoBehaviour
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        
     }
-
 
     void Update() {
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Debug.Log("점프 시도");
-            _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, _jumpForce);
+            _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             //_rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             //isGrounded = false;
@@ -43,9 +43,9 @@ public class BoxPlayerController : MonoBehaviour
 
 
         // 스피드가 느릴 경우
-        float speedX = Mathf.Abs(_rigidbody2D.linearVelocityX);
+        float speedX = Mathf.Abs(_rigidbody2D.linearVelocity.x);
 
-        // 
+       
         if (speedX < _maxWalkSpeed)
         {
             _rigidbody2D.AddForce(transform.right * key * _walkForce);
@@ -56,8 +56,9 @@ public class BoxPlayerController : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                isGrounded = true;
                 Debug.Log("점프 시도");
+                isGrounded = true;
+              
             }
         }
 
@@ -65,8 +66,9 @@ public class BoxPlayerController : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
+                Debug.Log("점프 시도");
                 isGrounded = false;
-            }
+        }
 
         }
     }
