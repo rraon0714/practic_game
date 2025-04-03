@@ -17,8 +17,12 @@ public class BoxGeneratorScript : MonoBehaviour
     float distanceMax = 1f;
     public float refNum = 0f;
 
+    //private float _xMovieSpeed;
+    //private float _xDelta = 2;
+    //private float _xStarPosition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,35 +30,51 @@ public class BoxGeneratorScript : MonoBehaviour
         currentPosition = transform.position.x;
     }
 
-    // Update is called once per frame
     void Update()
     {
+
         delta += Time.deltaTime;
         if (delta > span)
         {
             delta = 0;
-            GameObject gameObject = Instantiate(BoxPrefab) as GameObject;
+            GameObject newBox = Instantiate(BoxPrefab);
+            //GameObject gameObject = Instantiate(BoxPrefab) as GameObject;
+
+            //·£´ýÀ¸·Î x,y °´Ã¼ »ý¼º
             float positionX = Random.Range(boforeX - 4.0f, boforeX + 4.0f);
-            float positionY = Random.Range(2.0f, 2.8f);
+            float positionY = Random.Range(1.8f, 2.3f);
             beforeY += positionY;
             boforeX = positionX;
-            gameObject.transform.position = new Vector3(positionX, beforeY, 0);
+            newBox.transform.position = new Vector3(positionX, beforeY, 0);
 
-            gameObject.transform.Translate(new Vector3(3, 0, 0));
-            //transform.position = Vector3.MoveTowards(gameObject.transform.position, rb.transform.position, 0.1f);
-            currentPosition += Time.deltaTime * direction;
-            if (currentPosition >= rightMax)
+
+            //gameObject.transform.position = new Vector3(positionX, beforeY, 0);
+            //gameObject.transform.Translate(new Vector3(3, 0, 0));
+
+            Rigidbody2D rb = newBox.GetComponent<Rigidbody2D>();
+            if (rb != null)
             {
-                direction *= -1;
-                currentPosition = rightMax;
+                rb.velocity = new Vector2(speed * direction, 0);
             }
-            else if (currentPosition <= leftMax)
-            {
-                direction *= -1;
-                currentPosition = leftMax;
-            }
-            transform.position = new Vector3(currentPosition, 0, 0);
-            transform.Translate(distanceMax * Time.deltaTime * Mathf.Sin(refNum + Time.time * speed), 0, 0);
+
+
+            //currentPosition += Time.deltaTime * direction;
+            //if (currentPosition >= rightMax)
+            //{
+            //    direction *= -1;
+            //    currentPosition = rightMax;
+            //}
+            //else if (currentPosition <= leftMax)
+            //{
+            //    direction *= -1;
+            //    currentPosition = leftMax;
+            //}
+
+            //transform.position = new Vector3(currentPosition, 0, 0);
+            //transform.Translate(distanceMax * Time.deltaTime * Mathf.Sin(refNum + Time.time * speed), 0, 0);
+
+            //float x = _xStarPosition + _xDelta * Mathf.Sin(Time.time * _xMovieSpeed);
+            //transform.position = new Vector3(x, transform.position.y, 0);
         }
     }
 }
