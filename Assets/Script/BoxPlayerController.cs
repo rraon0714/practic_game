@@ -5,6 +5,9 @@ public class BoxPlayerController : MonoBehaviour
     float _jumpForce = 500.0f;
     float _walkForce = 30.0f;
     float _maxWalkSpeed = 2.0f;
+    var dir = Vector2.Zero;
+    bool moving = false;
+
 
     bool _isGrounded = false;
 
@@ -17,6 +20,10 @@ public class BoxPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+
+
+
         // Jump
         //if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         //{
@@ -75,6 +82,15 @@ public class BoxPlayerController : MonoBehaviour
         Debug.Log("Exit2D");
         _isGrounded = false;
     }
+
+    public void SetDestPosition(Vector2 _destPostion)
+    {
+        var destPostion;
+        dir = destPosition - currentPosition;
+        dir = dir.normalized;
+        moving = true;
+    }
+
 }
 
 

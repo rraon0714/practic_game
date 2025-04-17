@@ -29,13 +29,15 @@ public class BoxGeneratorScript : MonoBehaviour
     private Vector2 limitMin = new Vector2(-5.0f, -4.0f);
     private Vector2 limitMax = new Vector2(5.0f, 4.0f);
 
+    bool gameEnd = false;
 
+    //private Camera mainCamera;
 
     void Start()
     {
         starX = transform.position.x;
         rb = GetComponent<Rigidbody2D>();
-
+        //mainCamera = Camera.main;
     }
 
     void Update()
@@ -65,7 +67,7 @@ public class BoxGeneratorScript : MonoBehaviour
 
             // 위치 설정 
             float positionX = Random.Range(boforeX - 4.0f, boforeX + 4.0f);
-            float positionY = Random.Range(1.8f, 2.3f);
+            float positionY = Random.Range(1.8f, 2.3f); 
             beforeY += positionY;
             boforeX = positionX;
 
@@ -83,13 +85,24 @@ public class BoxGeneratorScript : MonoBehaviour
             }
             countCurrentObject++;
 
+
+            //Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
+
+            //if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
+            //{
+            //    Destroy(newBox);
+            //}
+
             // 범위를 벗어났을 경우 삭제
             if(transform.position.x < limitMin.x || transform.position.x > limitMax.x || 
-               transform.position.y < limitMin.y || transform.position.y > limitMax.y)
-            {
-                Destroy(newBox);
+                transform.position.y < limitMin.y || transform.position.y > limitMax.y)
+             {
+                 Destroy(newBox);
+             }
+                
+               
+
             }
-        }   
         }
     }
 }          
