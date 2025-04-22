@@ -5,11 +5,12 @@ public class BoxPlayerController : MonoBehaviour
     float _jumpForce = 500.0f;
     float _walkForce = 30.0f;
     float _maxWalkSpeed = 2.0f;
-    var dir = Vector2.Zero;
     bool moving = false;
-
-
     bool _isGrounded = false;
+    float fallingTime = 5.0f;
+    //LastObject lastObject;
+    //float dropOfPosition = -5.0f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,10 +21,6 @@ public class BoxPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
-
-
         // Jump
         //if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         //{
@@ -32,6 +29,7 @@ public class BoxPlayerController : MonoBehaviour
         //}
 
         //Debug.Log(_rigidbody2D.linearVelocityY);
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -81,15 +79,21 @@ public class BoxPlayerController : MonoBehaviour
     {
         Debug.Log("Exit2D");
         _isGrounded = false;
+
+        if(_isGrounded == false && fallingTime <= 5.0f)
+        {
+            Application.Quit();
+        }
     }
 
-    public void SetDestPosition(Vector2 _destPostion)
+    private void OncollsionEnter2D(Collision2D collision)
     {
-        var destPostion;
-        dir = destPosition - currentPosition;
-        dir = dir.normalized;
-        moving = true;
+        Debug.Log("마지막 발판입니다.");
+        _isGrounded = true;
+        Application.Quit();
     }
+
+    
 
 }
 
